@@ -17,9 +17,11 @@ public class CraftingSystem : MonoBehaviour
 
     private List<ItemSlot> craftingSlots;
     private Items items;
+    private Inventory inventory;
 
     void Awake()
     {
+        inventory = GetComponentInParent<Inventory>();
         craftingSlots = new List<ItemSlot>()
         {
             topLeftSlot, topCentreSlot, topRightSlot, midLeftSlot, midCentreSlot, midRightSlot, botLeftSlot, botCentreSlot, botRightSlot
@@ -74,6 +76,25 @@ public class CraftingSystem : MonoBehaviour
         {
             if (slot.Item)
                 Destroy(slot.Item.gameObject);
+        }
+    }
+
+    public void CloseCraftingScreen()
+    {
+        gameObject.SetActive(false);
+        foreach (var slot in craftingSlots)
+        {
+            if (slot.Item)
+            {
+                ItemSlot emptySlot = inventory.FindFirstEmptySlot();
+                slot.Item.transform.SetParent(emptySlot.transform);
+                emptySlot.Item = slot.Item;
+                emptySlot.Item.transform.localPosition = new Vector3(0, 0, 0);
+                DragDrop2 dragDrop2 = emptySlot.Item.GetComponent<DragDrop2>();
+                dragDrop2.currentSlot = emptySlot;
+                slot.Item = null;
+            }
+            //put all items back into inventory
         }
     }
 }
