@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,6 +13,7 @@ public class ItemSlot : MonoBehaviour
 
     public bool IsCraftingSlot;
     public bool IsResultSlot;
+    public bool IsCollectionSlot;
 
     void Awake()
     {
@@ -19,6 +21,14 @@ public class ItemSlot : MonoBehaviour
         {
             Item = Instantiate(itemPrefab, transform).GetComponent<Item>();
             Item.InitializeItem(debugItem);
+        }
+    }
+
+    public void KillTheChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
         }
     }
 }

@@ -15,6 +15,7 @@ public class DragDrop2 : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private RectTransform rectTransform;
     private CraftingSystem craftingSystem;
     private Inventory inventory;
+    private GarbageCollection garbageCollection;
 
     void Awake()
     {
@@ -22,6 +23,7 @@ public class DragDrop2 : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         rectTransform = GetComponent<RectTransform>();
         craftingSystem = GetComponentInParent<CraftingSystem>();
         inventory = GetComponentInParent<Inventory>();
+        garbageCollection = GetComponentInParent<GarbageCollection>();
     }
 
     /// <summary>
@@ -34,6 +36,11 @@ public class DragDrop2 : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (currentSlot.IsResultSlot)
         {
             craftingSystem.CraftNewItem();
+        }
+
+        if (currentSlot.IsCollectionSlot)
+        {
+            garbageCollection.RespawnItem();
         }
             
 

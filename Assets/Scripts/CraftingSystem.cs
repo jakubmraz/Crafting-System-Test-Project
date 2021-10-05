@@ -15,13 +15,14 @@ public class CraftingSystem : MonoBehaviour
     [SerializeField] private ItemSlot botRightSlot;
     [SerializeField] private ItemSlot resultSlot;
 
-    private List<ItemSlot> craftingSlots;
+    public List<ItemSlot> craftingSlots;
     private Items items;
-    private Inventory inventory;
+
+    public bool CraftingActive;
 
     void Awake()
     {
-        inventory = GetComponentInParent<Inventory>();
+        CraftingActive = false;
         craftingSlots = new List<ItemSlot>()
         {
             topLeftSlot, topCentreSlot, topRightSlot, midLeftSlot, midCentreSlot, midRightSlot, botLeftSlot, botCentreSlot, botRightSlot
@@ -31,13 +32,17 @@ public class CraftingSystem : MonoBehaviour
 
     public void Craft()
     {
-        if (resultSlot.Item)
-        { 
-            Destroy(resultSlot.Item.gameObject);
-            Debug.Log("Hi");
+        if(CraftingActive)
+        {
+            if (resultSlot.Item)
+            {
+                Destroy(resultSlot.Item.gameObject);
+                Debug.Log("Hi");
+            }
+            string craftingString = GetCraftingString();
+            ShowCraftableItem(craftingString);
         }
-        string craftingString = GetCraftingString();
-        ShowCraftableItem(craftingString);
+        
         
     }
 
@@ -76,25 +81,6 @@ public class CraftingSystem : MonoBehaviour
         {
             if (slot.Item)
                 Destroy(slot.Item.gameObject);
-        }
-    }
-
-    public void CloseCraftingScreen()
-    {
-        gameObject.SetActive(false);
-        foreach (var slot in craftingSlots)
-        {
-            if (slot.Item)
-            {
-                ItemSlot emptySlot = inventory.FindFirstEmptySlot();
-                slot.Item.transform.SetParent(emptySlot.transform);
-                emptySlot.Item = slot.Item;
-                emptySlot.Item.transform.localPosition = new Vector3(0, 0, 0);
-                DragDrop2 dragDrop2 = emptySlot.Item.GetComponent<DragDrop2>();
-                dragDrop2.currentSlot = emptySlot;
-                slot.Item = null;
-            }
-            //put all items back into inventory
         }
     }
 }
