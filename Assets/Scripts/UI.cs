@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 public class UI : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class UI : MonoBehaviour
 
     [SerializeField] private CraftingSystem craftingSystem;
     [SerializeField] private GarbageCollection garbageCollection;
+
+    [SerializeField] private RectTransform winPanel;
+    [SerializeField] private RectTransform lossPanel;
 
     public void ShowCollectionScreen()
     {
@@ -67,5 +72,15 @@ public class UI : MonoBehaviour
         craftingGrid.gameObject.SetActive(false);
         inventoryButton.gameObject.SetActive(true);
         garbageCollection.gameObject.SetActive(false);
+    }
+
+    public void ShowVictoryScreen()
+    {
+        winPanel.gameObject.SetActive(true);
+    }
+
+    public void ShowLossScreen()
+    {
+        lossPanel.gameObject.SetActive(true);
     }
 }

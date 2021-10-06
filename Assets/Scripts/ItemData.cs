@@ -32,6 +32,8 @@ public class Items
     public List<ItemData> ItemList = new List<ItemData>()
     {
         new ItemData("Bicycle", "bike", "Steel00SteelSteelSteelRubber0Rubber"),
+        new ItemData("Bag", "bag", "Plastic0PlasticPlasticPlasticPlasticPlasticPlasticPlastic"),
+        new ItemData("Watering Can", "wateringCan", "00PlasticPlasticPlastic0PlasticPlastic0")
     };
 
     public List<ItemData> BaseItemList = new List<ItemData>()
