@@ -93,6 +93,18 @@ public class DragDrop2 : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     currentSlot.Item = this.GetComponent<Item>();
                     craftingSystem.Craft();
                 }
+
+                else if (slot.Item != null && !slot.IsResultSlot && !slot.IsCollectionSlot)
+                {
+                    currentSlot.Item = slot.Item;
+                    currentSlot.Item.transform.SetParent(currentSlot.transform);
+                    currentSlot.Item.transform.localPosition = Vector3.zero;
+                    DragDrop2 drag = currentSlot.Item.GetComponent<DragDrop2>();
+                    drag.currentSlot = currentSlot;
+                    currentSlot = slot;
+                    currentSlot.Item = this.GetComponent<Item>();
+                    craftingSystem.Craft();
+                }
                 // In either cases we should break check loop.
                 break;
             }
