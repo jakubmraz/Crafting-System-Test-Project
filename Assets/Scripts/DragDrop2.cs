@@ -85,7 +85,7 @@ public class DragDrop2 : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             if (slot)
             {
                 // We should check if we can place ourselves​ there.
-                if (slot.Item == null && !slot.IsResultSlot)
+                if (slot.Item == null && !slot.IsResultSlot && !slot.IsCollectionSlot)
                 {
                     // Swapping references.
                     currentSlot.Item = null;
